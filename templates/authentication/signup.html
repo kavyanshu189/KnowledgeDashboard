@@ -1,0 +1,51 @@
+
+   
+<html style="background-color:DeepSkyBlue";>
+    <head>
+        <title>Knowledge Platform</title>
+    </head>
+    <body>
+        <section style="background-color:Cornsilk";>
+            <h1><center>Welcome to Knowledge Platform</center></h1>
+            <h4><center> A platform designed by CData to let users input any knowledge they have percieved and help others through the use of that knowledge.</center><h4>
+        </section><br><br>
+        <section style="text-align:justify;">
+    <body>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable fade show" roles="alert">
+            <strong>Messages:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+        <h2>Sign Up</h2>
+        <p>Please fill in the details to create your account.</p>
+        <br>
+    
+        <form action="/signup" method="post">
+       {% csrf_token %}
+    
+    
+            <label for="">Username</label> 
+            <input type="text" id="username" name="username" placeholder="Create a username" Required>
+            <br><br>
+            <label for="">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Enter your first name" Required>
+            <br><br>
+            <label for="">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Enter your last name" Required>
+            <br><br>
+            <label for="">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" Required>
+            <br><br>
+            <label for="">Password</label>
+            <input type="password" id="pass1" name="pass1" placeholder="Create your password" Required>
+            <br><br>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
