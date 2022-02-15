@@ -1,6 +1,12 @@
-<!DOCTYPE html>
-<html style="background-color:DeepSkyBlue";>
-<head>
+{% extends 'authentication/base.html' %}
+
+{% block title %}Sign in{% endblock title %}
+
+
+
+
+
+{% comment %} <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -66,8 +72,10 @@ span.psw {
   }
 }
 </style>
-</head>
-    <body>
+</head> {% endcomment %}
+
+      {% block body %}
+      
         <section style="background-color:Cornsilk";>
             <h1><center>Welcome to Knowledge Platform</center></h1>
             <h4><center> A platform designed by CData to let users input any knowledge they have percieved and help others through the use of that knowledge.</center><h4>
@@ -81,6 +89,7 @@ span.psw {
         </button>
         </div>
         {% endfor %}
+        <center>
     <h3>Sign In</h3>
 
     <form action="/signin" method="post">
@@ -88,7 +97,9 @@ span.psw {
 
     <form action="/action_page.php" method="post">
         <div class="imgcontainer">
-          <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+          <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar" style=" width:100px; height :100px;border-radius:50%" >
+          <br>
+          <br>
         </div>
         <label for="">Username</label> 
         <input type="text" id="username" name="username" placeholder="Enter your username" Required>
@@ -98,7 +109,11 @@ span.psw {
         <br>
         
         
-        <button type="submit">Sign In</button>
+        <button type="submit" style="border-radius:5%">Sign In</button>
     </form>
-</body>
-</html>
+  </center>
+{% comment %} </body>
+</html> {% endcomment %}
+
+
+{% endblock body %}
