@@ -114,7 +114,7 @@ def signup(request):
         message2 = render_to_string('email_confirmation.html',{
             'name':myuser.first_name,
             'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(myuser.pk)).decode(),
+            'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
             'token': generate_token.make_token(myuser)
         })
         email = EmailMessage(
