@@ -25,6 +25,9 @@ from django.utils.encoding import force_bytes, force_str
 from . tokens import generate_token
 from django.core.mail import EmailMessage, send_mail
 from django.utils.http import urlsafe_base64_decode
+from neo4j import GraphDatabase
+import pandas
+import numpy
 
 
 
@@ -59,6 +62,13 @@ def contact(request):
           "owner":owner
         }
         collection.insert_one(rec1)
+
+        # added neo4j database
+        neo4j_create_statemenet = "create (k:Knowledge {owner:'ayesha'}), ({psummary:'$psummary'}), ({pdescription:'$pdescription'}),({kanalysis:'$kanalysis'}), ({kinsisghts:'$kinsights'})"
+        data_base_connection = GraphDatabase.driver(uri = "bolt://localhost:7687", auth=("neo4j", "admin"))
+        session = data_base_connection.session()    
+        session.run(neo4j_create_statemenet)
+
         messages.success(request, 'Your message has been sent!')
     return render(request, 'authentication/contact.html')
 
