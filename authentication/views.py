@@ -64,7 +64,7 @@ def contact(request):
         collection.insert_one(rec1)
 
         # added neo4j database
-        neo4j_create_statemenet = "create (k:Knowledge {owner:'ayesha'}), ({psummary:'$psummary'}), ({pdescription:'$pdescription'}),({kanalysis:'$kanalysis'}), ({kinsisghts:'$kinsights'})"
+        neo4j_create_statemenet = "create (a: Problem{name:'%s'}), (k:Owner {owner:'%s'}), (l:Problem_Type{ptype:'%s'}),(m:Problem_Summary{psummary:'%s'}), (n:Probelm_Description{pdescription:'%s'}),(o:Knowledge_Analysis{kanalysis:'%s'}), (p:Knowledge_Insights{kinsisghts:'%s'}), (a)-[:Owner]->(k), (a)-[:Problem_Type]->(l), (a)-[:Problem_Summary]->(m), (a)-[:Problem_Description]->(n), (a)-[:Knowledge_analysis]->(o), (a)-[:Knowledge_insights]->(p)"%("Problem",owner,ptype,psummary,pdescription,kanalysis,kinsights)
         data_base_connection = GraphDatabase.driver(uri = "bolt://localhost:7687", auth=("neo4j", "admin"))
         session = data_base_connection.session()    
         session.run(neo4j_create_statemenet)
