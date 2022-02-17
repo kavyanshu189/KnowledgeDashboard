@@ -42,24 +42,24 @@ def about(request):
 
 def contribute(request):
     if request.method == "POST":
-        type=request.POST['type']
-        summary=request.POST['summary']
-        description=request.POST['description']
+        ptype=request.POST['ptype']
+        psummary=request.POST['psummary']
+        pdescription=request.POST['pdescription']
         products=request.POST.getlist('CD')
-        analysis=request.POST['analysis']
-        insights=request.POST['insights']
+        kanalysis=request.POST['kanalysis']
+        kinsisghts=request.POST['kinsisghts']
         tags=request.POST['tags']
         owner=request.POST['owner']      
 
         conn = MongoClient()
         db=conn.users
         collection=db.knowledge
-        rec1={"type":type,
-          "summary":summary,
-          "description":description,
+        rec1={"ptype":ptype,
+          "psummary":psummary,
+          "pdescription":pdescription,
           "products":products,
-          "analysis":analysis,
-          "insights":insights,
+          "kanalysis":kanalysis,
+          "kinsisghts":kinsisghts,
           "tags":tags,
           "owner":owner,          
         }
@@ -70,11 +70,11 @@ def contribute(request):
         neo4j_create_statemenet = '''
                         merge(a:Problem{name:'%s'})
                         merge(k:Owner{owner:'%s'})
-                        merge(l:Problem_Type{type:'%s'})
-                        merge(m:Problem_Summary{summary:'%s'})
-                        merge(n:Probelm_Description{description:'%s'})
-                        merge(o:Knowledge_Analysis{analysis:'%s'})
-                        merge(p:Knowledge_Insights{insights:'%s'})
+                        merge(l:Problem_Type{ptype:'%s'})
+                        merge(m:Problem_Summary{psummary:'%s'})
+                        merge(n:Probelm_Description{pdescription:'%s'})
+                        merge(o:Knowledge_Analysis{kanalysis:'%s'})
+                        merge(p:Knowledge_Insights{kinsisghts:'%s'})
                         merge(a)-[:Owner]->(k)
                         merge(a)-[:Problem_Type]->(l)
                         merge(a)-[:Problem_Summary]->(m)
@@ -87,7 +87,7 @@ def contribute(request):
                         merge(k)-[:Problem_Description]->(n)
                         merge(k)-[:Knowledge_analysis]->(o)
                         merge(k)-[:Knowledge_insights]->(p)
-        '''%("Problem",owner,type,summary,description,analysis,insights)
+        '''%("Problem",owner,ptype,psummary,pdescription,kanalysis,kinsisghts)
         data_base_connection = GraphDatabase.driver(uri = "bolt://localhost:7687", auth=("neo4j", "admin"))
         session = data_base_connection.session()    
         session.run(neo4j_create_statemenet)
