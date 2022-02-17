@@ -1,0 +1,71 @@
+{% extends 'authentication/base.html' %}
+
+{% block title %}Contribute{% endblock title %}
+
+{% block body %}
+<div class="container-fluid px-0 mb-3" >
+    <img src="https://source.unsplash.com/1200x400/?Gmail" class="d-block w-100 mx-0" alt="...">
+</div>
+<div class="container mb-3 py-4">
+    <h1 class="text-center">Contribute Knowledge</h1>
+    <center>
+    <form method="post" action="/contribute">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="type">Problem Type</label> 
+            
+            <select id="type" name="type">
+                <option value="defect">Defect</option>
+                <option value="enhancement">Enhancement</option>
+                <option value="supportticket">Support Ticket</option>
+                <option value="opportunity">Opportunity</option>
+            </select> 
+        </div>
+
+        <div class="form-group">
+            <label for="summary">Problem Summary</label> 
+            <input type="text" id="summary" name="summary">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Problem Description</label> 
+            <input type="text" id="description" name="description">
+        </div>      
+        
+        <div class="form-group">
+            <label for="product">Products Mapped </label>
+                <select name="products" id="products" multiple>
+                    <option value="CData Drivers">CData drivers</option>
+                    <option value="CData ArcESB">CData ArcESB</option>
+                    <option value="CData Connect">CData Connect</option>
+                    <option value="CData Sync">CData Sync</option>
+                    <option value="CData Server">CData API Server</option>
+                    <option value="CData DBAmp">CData DBAmp</option>
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="analysis">Knowledge Analysis</label> 
+            <input type="text" id="analysis" name="analysis">
+        </div>      
+        
+        <div class="form-group">
+            <label for="insights">Knowledge Insights</label> 
+            <input type="text" id="insights" name="insights">
+        </div>   
+
+        <div class="form-group">
+            <label for="tags">Knowledge tags</label> 
+            <input type="text" id="tags" name="tags" >
+        </div> 
+        <div class="form-group">
+            <label for="owner">Owner</label> 
+            <input type="text" id="owner" name="owner">
+        </div>   
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</center>
+
+</div>
+
+{% endblock body %}
