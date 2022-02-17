@@ -95,6 +95,20 @@ def contribute(request):
         messages.success(request, 'Your message has been sent!')
     return render(request, 'authentication/contribute.html')
 
+
+def defects(request):
+    conn = MongoClient()
+    db=conn.users
+    collection=db.knowledge
+    defectdata =collection.find({'ptype':'defect'})
+    
+    
+    for x in defectdata:
+        print(x)
+    
+   
+    return render(request, 'knowledgepages/defects.html', {'defectdata': defectdata.clone()}) 
+
 def signup(request):
     
     if request.method == "POST":
