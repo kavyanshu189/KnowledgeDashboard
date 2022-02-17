@@ -48,9 +48,9 @@
     <form method="post" action="/contribute">
     {% csrf_token %}
         <div class="form-group">
-            <label for="type">Problem Type</label> 
+            <label for="ptype">Problem Type</label> 
             
-            <select id="type" name="type">
+            <select id="ptype" name="ptype">
                 <option value="defect">Defect</option>
                 <option value="enhancement">Enhancement</option>
                 <option value="supportticket">Support Ticket</option>
@@ -59,35 +59,33 @@
         </div>
 
         <div class="form-group">
-            <label for="summary">Problem Summary</label> 
-            <input type="text" id="summary" name="summary">
+            <label for="psummary">Problem Summary</label> 
+            <input type="text" id="psummary" name="psummary">
         </div>
         
         <div class="form-group">
-            <label for="description">Problem Description</label> 
-            <input type="text" id="description" name="description">
+            <label for="pdescription">Problem Description</label> 
+            <input type="text" id="pdescription" name="pdescription">
         </div>      
         
         <div class="form-group">
-            <label for="product">Products Mapped </label>
-                <select name="products" id="products" multiple>
-                    <option value="CData Drivers">CData drivers</option>
-                    <option value="CData ArcESB">CData ArcESB</option>
-                    <option value="CData Connect">CData Connect</option>
-                    <option value="CData Sync">CData Sync</option>
-                    <option value="CData Server">CData API Server</option>
-                    <option value="CData DBAmp">CData DBAmp</option>
-                </select>
-        </div>
+          <label for="CD">Products Mapped: </label><br>
+          <input type="checkbox" name="CD" value="CData Drivers">CData Drivers
+          <input type="checkbox" name="CD" value="CData ArcESB">CData ArcESB
+          <input type="checkbox" name="CD" value="CData Connect">CData Connect
+          <input type="checkbox" name="CD" value="CData Sync">CData Sync
+          <input type="checkbox" name="CD" value="CData Server">CData Server
+          <input type="checkbox" name="CD" value="CData DBAmp">CData DBAmp
+      </div>
 
         <div class="form-group">
-            <label for="analysis">Knowledge Analysis</label> 
-            <input type="text" id="analysis" name="analysis">
+            <label for="kanalysis">Knowledge Analysis</label> 
+            <input type="text" id="kanalysis" name="kanalysis">
         </div>      
         
         <div class="form-group">
-            <label for="insights">Knowledge Insights</label> 
-            <input type="text" id="insights" name="insights">
+            <label for="kinsisghts">Knowledge Insights</label> 
+            <input type="text" id="kinsisghts" name="kinsisghts">
         </div>   
 
         <div class="form-group">
