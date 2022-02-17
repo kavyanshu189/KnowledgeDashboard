@@ -45,7 +45,7 @@ def contribute(request):
         type=request.POST['type']
         summary=request.POST['summary']
         description=request.POST['description']
-        products=request.POST['products']
+        products=request.POST.getlist('CD')
         analysis=request.POST['analysis']
         insights=request.POST['insights']
         tags=request.POST['tags']
@@ -66,7 +66,28 @@ def contribute(request):
         collection.insert_one(rec1)
 
         # added neo4j database
-        neo4j_create_statemenet = "create (a: Problem{name:'%s'}), (k:Owner {owner:'%s'}), (l:Problem_Type{type:'%s'}),(m:Problem_Summary{summary:'%s'}), (n:Probelm_Description{description:'%s'}),(o:Knowledge_Analysis{analysis:'%s'}), (p:Knowledge_Insights{kinsisghts:'%s'}), (a)-[:Owner]->(k), (a)-[:Problem_Type]->(l), (a)-[:Problem_Summary]->(m), (a)-[:Problem_Description]->(n), (a)-[:Knowledge_analysis]->(o), (a)-[:Knowledge_insights]->(p)"%("Problem",owner,type,summary,description,analysis,insights)
+        #neo4j_create_statemenet = "create (a: Problem{name:'%s'}), (k:Owner {owner:'%s'}), (l:Problem_Type{type:'%s'}),(m:Problem_Summary{summary:'%s'}), (n:Probelm_Description{description:'%s'}),(o:Knowledge_Analysis{analysis:'%s'}), (p:Knowledge_Insights{kinsisghts:'%s'}), (a)-[:Owner]->(k), (a)-[:Problem_Type]->(l), (a)-[:Problem_Summary]->(m), (a)-[:Problem_Description]->(n), (a)-[:Knowledge_analysis]->(o), (a)-[:Knowledge_insights]->(p)"%("Problem",owner,type,summary,description,analysis,insights)
+        neo4j_create_statemenet = '''
+                        merge(a:Problem{name:'%s'})
+                        merge(k:Owner{owner:'%s'})
+                        merge(l:Problem_Type{type:'%s'})
+                        merge(m:Problem_Summary{summary:'%s'})
+                        merge(n:Probelm_Description{description:'%s'})
+                        merge(o:Knowledge_Analysis{analysis:'%s'})
+                        merge(p:Knowledge_Insights{insights:'%s'})
+                        merge(a)-[:Owner]->(k)
+                        merge(a)-[:Problem_Type]->(l)
+                        merge(a)-[:Problem_Summary]->(m)
+                        merge(a)-[:Problem_Description]->(n)
+                        merge(a)-[:Knowledge_analysis]->(o)
+                        merge(a)-[:Knowledge_insights]->(p)
+
+                        merge(k)-[:Problem_Type]->(l)
+                        merge(k)-[:Problem_Summary]->(m)
+                        merge(k)-[:Problem_Description]->(n)
+                        merge(k)-[:Knowledge_analysis]->(o)
+                        merge(k)-[:Knowledge_insights]->(p)
+        '''%("Problem",owner,type,summary,description,analysis,insights)
         data_base_connection = GraphDatabase.driver(uri = "bolt://localhost:7687", auth=("neo4j", "admin"))
         session = data_base_connection.session()    
         session.run(neo4j_create_statemenet)
